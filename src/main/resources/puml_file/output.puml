@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+class AttachmentResourceException{
+# AttachmentResourceException(message : String, cause : Throwable)
+}
+AttachmentResourceException --|> MailException
+class AttachmentResource{
+- {static} serialVersionUID : long
+- name : String
+- dataSource : DataSource
+- description : String
+- contentTransferEncoding : ContentTransferEncoding
++ AttachmentResource(name : String, dataSource : DataSource)
++ AttachmentResource(name : String, dataSource : DataSource, description : String)
++ AttachmentResource(name : String, dataSource : DataSource, description : String, contentTransferEncoding : ContentTransferEncoding)
++ readAllData() : String
++ readAllBytes() : byte[]
++ readAllData(charset : Charset) : String
++ getDataSourceInputStream() : InputStream
++ getDataSource() : DataSource
++ getName() : String
++ getDescription() : String
++ getContentTransferEncoding() : ContentTransferEncoding
++ hashCode() : int
++ equals(o : Object) : boolean
++ toString() : String
+}
+AttachmentResource ..|> Serializable
+class Recipient{
+- {static} serialVersionUID : long
+- name : String
+- address : String
+- type : RecipientType
++ Recipient(name : String, address : String, type : RecipientType)
++ equals(o : Object) : boolean
++ hashCode() : int
++ toString() : String
++ getName() : String
++ getAddress() : String
++ getType() : RecipientType
+}
+Recipient ..|> Serializable
+AttachmentResource--"- contentTransferEncoding" ContentTransferEncoding
+enum CalendarMethod{
+PUBLISH
+REQUEST
+REPLY
+ADD
+CANCEL
+REFRESH
+COUNTER
+DECLINECOUNTER
+}
+enum ContentTransferEncoding{
+BASE_64
+B
+Q
+BINARY
+BIT7
+BIT8
+QUOTED_PRINTABLE
+UU
+X_UU
+X_UUE
+}
+@enduml
